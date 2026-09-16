@@ -6,10 +6,38 @@ const AuthController = {
   // CADASTRO
   async register(req, res) {
     try {
-      const { nome, email, password } = req.body;
+      const { nome, email, password, confirm_password } = req.body;
 
-      if (!nome || !email || !password) {
+      if (!nome || !email || !password || !confirm_password) {
         return res.status(400).json({ error: "Preencha todos os campos." });
+      }
+
+      if (password != confirm_password) {
+        return res.status(400).json({ error: "As senhas devem ser iguais." });
+      }
+
+      /* VALIDAÇÃO DA SENHA */
+      const passwordErrorMessage = () => {
+        return res.status(400).json({
+          error:
+            "A senha deve ter pelo menos 8 caracteres, incluindo maiúscula, minúscula, número e caractere especial.",
+        });
+      };
+
+      const hasMinLength = password.length >= 8;
+      const hasUppercase = /[A-Z]/.test(password);
+      const hasLowercase = /[a-z]/.test(password);
+      const hasNumber = /[0-9]/.test(password);
+      const hasSpecialChar = /[^A-Za-z0-9]/.test(password);
+
+      if (
+        !hasMinLength ||
+        !hasUppercase ||
+        !hasLowercase ||
+        !hasNumber ||
+        !hasSpecialChar
+      ) {
+        passwordErrorMessage();
       }
 
       // 1. Verifica se o e-mail já existe
@@ -23,9 +51,10 @@ const AuthController = {
       const senhaHash = await bcrypt.hash(password, salt);
 
       // 3. Salva no banco
+      const formattedEmail = email.toLowerCase();
       const newUser = await User.create({
         nome,
-        email,
+        email: formattedEmail,
         password: senhaHash,
       });
 
