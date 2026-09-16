@@ -25,12 +25,6 @@ function Register() {
   });
 
   const onSubmit = async (data) => {
-    if (data.password != data.confirm_password) {
-      return setMessageError({
-        ativo: true,
-        message: "As senhas estão divergentes.",
-      });
-    }
     setMessageError({ ativo: false, message: "" });
     try {
       await userRegister(data);

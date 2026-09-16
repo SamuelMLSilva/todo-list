@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { ArrowRight, Sparkles } from "lucide-react";
+import { ArrowRight, Sparkles, ScrollText } from "lucide-react";
 
 function Home() {
   return (
@@ -8,16 +8,16 @@ function Home() {
       <div className="w-full max-w-md rounded-2xl border border-neutral-800 bg-neutral-900/70 p-8 text-center shadow-xl backdrop-blur-md">
         {/* Badge / Ícone decorativo */}
         <div className="mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-xl border border-neutral-700/60 bg-neutral-800/70 text-indigo-400 shadow-inner">
-          <Sparkles className="h-6 w-6" />
+          <ScrollText className="h-6 w-6" />
         </div>
 
         {/* Textos de boas-vindas */}
         <h1 className="text-2xl font-bold tracking-tight text-white sm:text-3xl">
-          Bem-vindo ao sistema
+          Bem vindo ao todo-list que resolve!
         </h1>
         <p className="mt-2 text-sm text-neutral-400">
-          É um prazer recebê-lo! Escolha como deseja acessar a plataforma para
-          continuar.
+          É um prazer recebê-lo! Cadastre-se agora mesmo e comece a listar suas
+          tarefas!
         </p>
 
         {/* Botões de Ação */}
