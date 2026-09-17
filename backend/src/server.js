@@ -7,6 +7,7 @@ import db from "./config/db.js";
 
 // Importa as rotas de autenticação
 import authRoutes from "./routes/authRoutes.js";
+import tasksRoutes from "./routes/tasks.js";
 import cookieParser from "cookie-parser";
 
 const app = express();
@@ -30,7 +31,8 @@ app.use(
 );
 
 // Registra as rotas
-app.use("/api", authRoutes);
+app.use("/api/auth", authRoutes);
+app.use("/api/tasks", tasksRoutes);
 
 // Rota de teste
 app.get("/health", (req, res) => {
