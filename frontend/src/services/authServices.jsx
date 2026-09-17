@@ -1,12 +1,15 @@
 export async function loginUser(data) {
-  const response = await fetch(`${import.meta.env.VITE_API_URL}/api/login`, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
+  const response = await fetch(
+    `${import.meta.env.VITE_API_URL}/api/auth/login`,
+    {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+      credentials: "include",
     },
-    body: JSON.stringify(data),
-    credentials: "include",
-  });
+  );
 
   if (!response.ok) {
     const erro = await response.json(); // lê o corpo da resposta de erro
@@ -16,13 +19,16 @@ export async function loginUser(data) {
 }
 
 export async function registerUser(data) {
-  const response = await fetch(`${import.meta.env.VITE_API_URL}/api/register`, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
+  const response = await fetch(
+    `${import.meta.env.VITE_API_URL}/api/auth/register`,
+    {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
     },
-    body: JSON.stringify(data),
-  });
+  );
 
   if (!response.ok) {
     const erro = await response.json(); // lê o corpo da resposta de erro
@@ -32,10 +38,13 @@ export async function registerUser(data) {
 }
 
 export async function logoutUser() {
-  const response = await fetch(`${import.meta.env.VITE_API_URL}/api/logout`, {
-    method: "POST",
-    credentials: "include",
-  });
+  const response = await fetch(
+    `${import.meta.env.VITE_API_URL}/api/auth/logout`,
+    {
+      method: "POST",
+      credentials: "include",
+    },
+  );
 
   if (!response.ok) {
     const erro = await response.json(); // lê o corpo da resposta de erro
@@ -45,7 +54,7 @@ export async function logoutUser() {
 }
 
 export async function getMe() {
-  const response = await fetch(`${import.meta.env.VITE_API_URL}/api/me`, {
+  const response = await fetch(`${import.meta.env.VITE_API_URL}/api/auth/me`, {
     method: "GET",
     credentials: "include",
   });
