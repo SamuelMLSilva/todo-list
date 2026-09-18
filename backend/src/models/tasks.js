@@ -7,6 +7,28 @@ const Tasks = {
     const { rows } = await db.query(query, [user_id]);
     return rows;
   },
+
+  async create(data) {
+    const { user_id, titulo, descricao, status, prioridade, data_vencimento } =
+      data;
+
+    const query = `
+      INSERT INTO tasks (user_id, titulo, descricao, status, prioridade, data_vencimento)
+      VALUES ($1, $2, $3, $4, $5, $6)
+      RETURNING *
+    `;
+    const values = [
+      user_id,
+      titulo,
+      descricao,
+      status,
+      prioridade,
+      data_vencimento,
+    ];
+    const { rows } = await db.query(query, values);
+
+    return rows[0]; // Retorna a tarefa recém-criada como um objeto
+  },
 };
 
 export default Tasks;
