@@ -5,6 +5,8 @@ const TaskController = {
     try {
       const user_id = req.user?.id;
 
+      const taskId = req.params;
+
       if (!user_id) {
         return res.status(401).json({ error: "Usuário não autorizado." });
       }
@@ -14,6 +16,26 @@ const TaskController = {
       return res.status(200).json({
         message: "Tasks consultadas com sucesso!",
         tasks,
+      });
+    } catch (error) {
+      console.log(error);
+      return res.status(500).json({ error: "Erro ao listar tarefas." });
+    }
+  },
+  async show(req, res) {
+    try {
+      const user_id = req.user?.id;
+      const { id } = req.params;
+
+      if (!user_id) {
+        return res.status(401).json({ error: "Usuário não autorizado." });
+      }
+
+      const task = await Task.findTaskId(user_id, id);
+
+      return res.status(200).json({
+        message: "Tasks consultadas com sucesso!",
+        task,
       });
     } catch (error) {
       console.log(error);

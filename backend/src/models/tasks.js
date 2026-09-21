@@ -8,6 +8,12 @@ const Tasks = {
     return rows;
   },
 
+  async findTaskId(user_id, id) {
+    const query = "SELECT * FROM tasks WHERE user_id = $1 AND id = $2";
+    const { rows } = await db.query(query, [user_id, id]);
+    return rows[0];
+  },
+
   async create(data) {
     const { user_id, titulo, descricao, status, prioridade, data_vencimento } =
       data;
