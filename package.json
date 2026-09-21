@@ -1,0 +1,11 @@
+{
+  "devDependencies": {
+    "concurrently": "^10.0.5"
+  },
+  "name": "meu-todo-list",
+  "scripts": {
+    "server": "npm run dev --prefix backend",
+    "client": "npm run dev --prefix frontend -- --host",
+    "dev": "concurrently --kill-others-on-fail \"npm run server\" \"npm run client\""
+  }
+}

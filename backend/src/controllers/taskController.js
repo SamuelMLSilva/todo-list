@@ -50,7 +50,7 @@ const TaskController = {
       const newTask = await Task.create(taskData);
 
       return res.status(201).json({
-        message: `Tarefa ID ${newTask.id} criada com sucesso`,
+        message: `Tarefa ID ${newTask.id} criada com sucesso.`,
         task: newTask,
       });
     } catch (error) {
