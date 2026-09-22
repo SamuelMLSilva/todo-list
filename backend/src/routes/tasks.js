@@ -5,6 +5,7 @@ import { authMiddleware } from "../middlewares/authMiddlware.js";
 
 routerTasks.get("/", authMiddleware, TaskController.list);
 routerTasks.get("/:id", authMiddleware, TaskController.show);
+routerTasks.put("/:id", authMiddleware, TaskController.update);
 routerTasks.post("/", authMiddleware, TaskController.create);
 
 export default routerTasks;

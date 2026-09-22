@@ -42,6 +42,37 @@ const TaskController = {
       return res.status(500).json({ error: "Erro ao listar tarefas." });
     }
   },
+  async update(req, res) {
+    try {
+      const user_id = req.user?.id;
+      const { id } = req.params;
+
+      const taskData = {
+        ...req.body,
+        id,
+      };
+
+      if (!user_id) {
+        return res.status(401).json({ error: "Usuário não autorizado." });
+      }
+
+      const task = await Task.updateTask(user_id, taskData);
+
+      if (!task) {
+        return res
+          .status(404)
+          .json({ error: "Tarefa não encontrada ou não pertence ao usuário." });
+      }
+
+      return res.status(200).json({
+        message: "Task atualizada com sucesso",
+        task,
+      });
+    } catch (error) {
+      console.log(error);
+      return res.status(500).json({ error: "Erro ao listar tarefas." });
+    }
+  },
   async create(req, res) {
     try {
       const user_id = req.user?.id;
@@ -70,6 +101,12 @@ const TaskController = {
       /* FIM VALIDAÇÕES */
 
       const newTask = await Task.create(taskData);
+
+      if (!newTask) {
+        return res
+          .status(400)
+          .json({ error: "Não foi possível criar a tarefa." });
+      }
 
       return res.status(201).json({
         message: `Tarefa ID ${newTask.id} criada com sucesso.`,
