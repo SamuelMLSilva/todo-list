@@ -68,6 +68,14 @@ const Tasks = {
 
     return rows[0]; // Retorna a tarefa recém-criada como um objeto
   },
+
+  async deleteTask(user_id, id) {
+    const query =
+      "DELETE FROM tasks WHERE user_id = $1 AND id = $2 RETURNING *";
+    const values = [user_id, id];
+    const { rows } = await db.query(query, values);
+    return rows[0];
+  },
 };
 
 export default Tasks;

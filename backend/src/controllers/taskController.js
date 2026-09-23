@@ -151,6 +151,26 @@ const TaskController = {
       return res.status(500).json({ error: "Erro ao criar tarefas." });
     }
   },
+
+  async delete(req, res) {
+    try {
+      const user_id = req.user?.id;
+      const { id } = req.params;
+
+      const task = await Task.deleteTask(user_id, id);
+
+      if (!task) {
+        return res.status(404).json({ error: "Tarefa não encontrada." });
+      }
+
+      return res.status(201).json({
+        message: `Tarefa ID ${task.id} deletada com sucesso.`,
+      });
+    } catch (error) {
+      console.log(error);
+      return res.status(500).json({ error: "Erro ao deletar tarefa." });
+    }
+  },
 };
 
 export default TaskController;

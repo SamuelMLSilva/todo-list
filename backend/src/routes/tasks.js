@@ -8,5 +8,6 @@ routerTasks.get("/:id", authMiddleware, TaskController.show);
 routerTasks.put("/:id", authMiddleware, TaskController.update);
 routerTasks.patch("/:id", authMiddleware, TaskController.updateStatus);
 routerTasks.post("/", authMiddleware, TaskController.create);
+routerTasks.delete("/:id", authMiddleware, TaskController.delete);
 
 export default routerTasks;
