@@ -15,22 +15,34 @@ const Tasks = {
   },
 
   async updateTask(user_id, data) {
-    const { titulo, descricao, status, prioridade, data_vencimento, id } = data;
-    console.log(data);
+    const { titulo, descricao, prioridade, data_vencimento, id } = data;
+
     const query = `
-      UPDATE tasks SET (titulo, descricao, status, prioridade, data_vencimento)
-      = ($1, $2, $3, $4, $5) WHERE id = $6 AND user_id = $7
+      UPDATE tasks SET (titulo, descricao, prioridade, data_vencimento)
+      = ($1, $2, $3, $4) WHERE id = $5 AND user_id = $6
       RETURNING *
     `;
     const values = [
       titulo,
       descricao,
-      status,
       prioridade,
       data_vencimento,
       id,
       user_id,
     ];
+    const { rows } = await db.query(query, values);
+    return rows[0];
+  },
+
+  async updateStatusTask(user_id, data) {
+    const { status, id } = data;
+
+    const query = `
+      UPDATE tasks SET status
+      = $1 WHERE id = $2 AND user_id = $3
+      RETURNING *
+    `;
+    const values = [status, id, user_id];
     const { rows } = await db.query(query, values);
     return rows[0];
   },

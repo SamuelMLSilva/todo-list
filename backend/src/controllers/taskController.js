@@ -70,7 +70,41 @@ const TaskController = {
       });
     } catch (error) {
       console.log(error);
-      return res.status(500).json({ error: "Erro ao listar tarefas." });
+      return res.status(500).json({ error: "Erro ao atualizar tarefas." });
+    }
+  },
+
+  async updateStatus(req, res) {
+    try {
+      const user_id = req.user?.id;
+      const { id } = req.params;
+
+      const taskData = {
+        ...req.body,
+        id,
+      };
+
+      if (!user_id) {
+        return res.status(401).json({ error: "Usuário não autorizado." });
+      }
+
+      const task = await Task.updateStatusTask(user_id, taskData);
+
+      if (!task) {
+        return res
+          .status(404)
+          .json({ error: "Tarefa não encontrada ou não pertence ao usuário." });
+      }
+
+      return res.status(200).json({
+        message: "Status da task foi atualizado com sucesso",
+        task,
+      });
+    } catch (error) {
+      console.log(error);
+      return res
+        .status(500)
+        .json({ error: "Erro ao atualizar status da tarefa." });
     }
   },
   async create(req, res) {

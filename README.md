@@ -42,6 +42,6 @@ _(todas protegidas por middleware de autenticação)_
 | ✅   | GET    | `/api/tasks`            | Lista as tarefas do usuário logado (aceita `?status=`, `?prioridade=`, `?ordenarPor=`) |
 | ✅   | POST   | `/api/tasks`            | Cria uma nova tarefa                                                                   |
 | ✅   | GET    | `/api/tasks/:id`        | Retorna uma tarefa específica                                                          |
-| ❌   | PUT    | `/api/tasks/:id`        | Atualiza uma tarefa existente                                                          |
-| ❌   | PATCH  | `/api/tasks/:id/status` | Atualiza apenas o status (pendente/concluída)                                          |
+| ✅   | PUT    | `/api/tasks/:id`        | Atualiza uma tarefa existente                                                          |
+| ✅   | PATCH  | `/api/tasks/:id/status` | Atualiza apenas o status (pendente/concluída)                                          |
 | ❌   | DELETE | `/api/tasks/:id`        | Remove uma tarefa                                                                      |
