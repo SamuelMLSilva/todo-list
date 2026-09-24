@@ -96,10 +96,12 @@ const AuthController = {
         { expiresIn: process.env.JWT_EXPIRES_IN },
       );
 
+      const isProduction = process.env.NODE_ENV === "production";
+
       res.cookie("token", token, {
         httpOnly: true, // Impede leitura via JS (document.cookie)
-        secure: false, // Apenas HTTPS em produção
-        sameSite: "lax", // Proteção contra CSRF ('strict' ou 'lax')
+        secure: isProduction, // Apenas HTTPS em produção
+        sameSite: isProduction ? "none" : "lax", // Proteção contra CSRF ('strict' ou 'lax')
         maxAge: 1000 * 60 * 60, // 1 hora em milissegundos
       });
 
